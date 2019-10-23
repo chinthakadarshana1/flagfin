@@ -41,7 +41,8 @@ class User extends CI_Controller
     public function logoutUser(){
         unset(
             $_SESSION[SESSION_USER],
-            $_SESSION[SESSION_TOKEN]
+            $_SESSION[SESSION_TOKEN],
+            $_SESSION[SESSION_ROLES]
         );
         redirect('/user', 'refresh');
     }
