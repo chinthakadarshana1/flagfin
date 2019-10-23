@@ -9,6 +9,10 @@ Employee Mangement and review system based on Service Oriented Architecture, OAu
 ## Demo
 
 * [Web Application](http://emp.chinthakafernando.com)
+```
+User Name : chin
+Password : user@123
+```
 * [API](http://ids.chinthakafernando.com)
 
 ## Built With
