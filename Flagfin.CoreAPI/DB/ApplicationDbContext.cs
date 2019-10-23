@@ -17,5 +17,6 @@ namespace Flagfin.CoreAPI.DB
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }

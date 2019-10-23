@@ -1,39 +1,53 @@
 "use strict";
 
 //view model
-function EmployeeModel(status){
+function ReviewModel(status){
     return {
+        ReviewId:0,
+        ReviewerId:0,
+        ReviewerName:"",
         EmployeeId:0,
-        UserName:"",
-        Email:"",
-        Password:"",
-        ConfirmPassword:"",
-        FirstName : "",
-        LastName : "",
+        EmployeeName:"",
+        Status : "",
+        StatusId : 0,
+        Comment : "",
+        Name:"",
         sort_by:0
     };
 }
 
 //grid row template
-let gridRowTemplate = Vue.component( 'employeeRow',{
+let gridRowTemplate = Vue.component( 'reviewRow',{
         props: ['row'],
         template: '#gridRowTemplate',
         methods:{
             deleteRow : function () {
-                this.$root.$emit('deleteEmployeeEvent', this.row);
-            }
+                this.$root.$emit('deleteReviewEvent', this.row);
+            },
+            getStatusCss : function (row) {
+                var ret = "label-danger";
+                if(row.StatusId == 1)
+                    ret= "label-warning";
+                else if(row.StatusId == 2)
+                    ret= "label-success";
+                return ret;
+            },
         }
     });
 
 //grid
-let employeeGrid = vueAjaxGrid();
+let reviewGrid = vueAjaxGrid();
 
 //advanced search
-let advancedSearchTemplate = Vue.component('employeeAdvancedSearch',{
+let advancedSearchTemplate = Vue.component('reviewAdvancedSearch',{
         template: '#advancedSearchTemplate',
         data : function () {
             return{
-                query : new window.EmployeeModel(-1)
+                query : new window.ReviewModel(-1),
+                select2Options:{
+                    minimumInputLength: 2,
+                    ajax: window.employeeSearchAjax()
+                }
             }
         },
         methods : {
@@ -41,7 +55,7 @@ let advancedSearchTemplate = Vue.component('employeeAdvancedSearch',{
                 this.$root.$emit("advancedSearch.searchClicked", this.query);
             },
             clearClicked : function () {
-                this.query = new window.EmployeeModel(-1);
+                this.query = new window.ReviewModel(-1);
                 this.$root.$emit("advancedSearch.searchClicked", this.query);
             }
         }
@@ -51,15 +65,15 @@ let advancedSearchTemplate = Vue.component('employeeAdvancedSearch',{
 let searchBox = vueSearchBox();
 
 //delete template
-Vue.component('deleteEmployeeTemplate',{
+Vue.component('deleteReviewTemplate',{
         template: '#deleteRowTemplate',
         data : function () {
             return {
-                deleteModel : new window.EmployeeModel()
+                deleteModel : new window.ReviewModel()
             }
         },
         methods:{
-            deleteEmployee : function () {
+            deleteReview : function () {
                 let container = $(this.$el).parents(".modal-dialog");
 
                 window.CommonFunctions.cHiNLoader(true,container);
@@ -69,16 +83,16 @@ Vue.component('deleteEmployeeTemplate',{
                             //console.log(data);
                             window.CommonFunctions.cHiNLoader(false,container);
                             this.$parent.hide();
-                            $.growl.notice({title: "Deleted Successfully", message: this.deleteModel.userName+" Deleted Successfully" });
+                            $.growl.notice({title: "Deleted Successfully", message: this.deleteModel.ReviewId+" Deleted Successfully" });
                             this.$root.$emit('refreshSearch', null);
                         }else{
-                            $.growl.warning({title: "Error Occurred", message: this.deleteModel.userName+" Couldn't Delete" });
+                            $.growl.warning({title: "Error Occurred", message: this.deleteModel.ReviewId+" Couldn't Delete" });
                         }
                     }.bind(this));
             }
         },
         mounted:function () {
-            this.$root.$on('deleteEmployeeEvent', data => {
+            this.$root.$on('deleteReviewEvent', data => {
                 Vue.set(this, "deleteModel", data);
                 this.$parent.show();
             });
@@ -91,7 +105,7 @@ let modal = vueModal();
 
 //tab templates
 let searchTab =  {
-    name: "Search Employee",
+    name: "Search Review",
     icon: "glyphicon glyphicon-search",
     tabId : "tabSearch",
     isClosed : false,
@@ -100,35 +114,35 @@ let searchTab =  {
         template: "#tabSearchTemplate",
         data : function () {
                 return {
-                    tabText : "Search Employee",
+                    tabText : "Search Review",
 
                     //grid params
-                    requiredColumns: [{name : "Employee ID",width:100},{name : "User Name"},
-                                    {name : "Employee Name", width : 300},{name : "Email"},
+                    requiredColumns: [{name : "Review ID",width:100},{name : "Review",width : 200},{name : "Employee",width : 200},
+                                    {name : "Reviewer", width : 200},{name : "Status"},
                                     {name : "Actions", width : 175}],
 
                     query: {
                         page_size : window.MasterVars.DefaultPageSize,
                         page_no : 1,
                         free_text : "",
-                        search_model : new EmployeeModel(-1)
+                        search_model : new ReviewModel(-1)
                     },
                     apiUrl: window.pageVars.searchUrl,
-                    gridRowTemplate : "employeeRow"
+                    gridRowTemplate : "reviewRow"
             };
         },
         methods: {
             searchTable: function (isInit) {
                 this.query.page_no = 1;
                 this.query.page_size = window.MasterVars.DefaultPageSize;
-                this.$refs.employeesSearchGrid.searchAjax(isInit);
+                this.$refs.reviewsSearchGrid.searchAjax(isInit);
             }
         },
         mounted:function () {
             let searchGridContainer = $("#"+this.tabId).find(".search-grid-container");
             this.$root.$on(searchBox.events.searchClicked, data => {
                 this.query.free_text = data.free_text;
-                this.query.search_model = new EmployeeModel(-1);
+                this.query.search_model = new ReviewModel(-1);
                 this.searchTable(1);
                 CommonFunctions.scrollTo( searchGridContainer);
             });
@@ -141,7 +155,7 @@ let searchTab =  {
             });
 
             this.$root.$on('refreshSearch', data => {
-                this.query.search_model = new EmployeeModel(-1);
+                this.query.search_model = new ReviewModel(-1);
                 this.query.free_text = "";
                 this.searchTable(1);
             });
@@ -151,14 +165,14 @@ let searchTab =  {
     routing :{
         data : function () {
             return {
-                routeText : "Search Employee"
+                routeText : "Search Review"
             };
         }
     }
 };
 
 let viewTab = {
-    name: 'View Employee',
+    name: 'View Review',
     icon: 'fa fa-eye',
     tabId : 'tabView',
     isClosed : true,
@@ -166,12 +180,12 @@ let viewTab = {
         template: '#tabViewtemplate',
         data : function () {
             return {
-                viewModel : new EmployeeModel()
+                viewModel : new ReviewModel()
             };
         },
         methods:{
             loadView : function () {
-                if(this.viewModel.EmployeeId){
+                if(this.viewModel.ReviewId){
                     let tabContainer = $("#"+this.tabId);
                     window.CommonFunctions.cHiNLoader(true,tabContainer);
                     window.CommonFunctions.ServerAjaxPost(window.pageVars.getUrl,this.viewModel)
@@ -180,7 +194,7 @@ let viewTab = {
                                 Vue.set(this, "viewModel", data);
                                 window.CommonFunctions.cHiNLoader(false,tabContainer);
                             }else{
-                                $.growl.warning({title: "Error occurred", message: "Couldn't find requested Employee" });
+                                $.growl.warning({title: "Error occurred", message: "Couldn't find requested Review" });
                             }
                         }.bind(this));
                 }
@@ -193,14 +207,14 @@ let viewTab = {
     routing :{
         data : function () {
             return {
-                routeText : "View Employee"
+                routeText : "View Review"
             }
         }
     }
 };
 
 let editTab ={
-    name: 'Modify Employee',
+    name: 'Modify Review',
     icon: 'glyphicon glyphicon-edit',
     tabId : 'tabEdit',
     isClosed : true,
@@ -208,12 +222,12 @@ let editTab ={
         template: '#tabEditTemplate',
         data : function () {
             return {
-                editModel: new window.EmployeeModel()
+                editModel: new window.ReviewModel()
             };
         },
         methods:{
             loadEditTab : function () {
-                if(this.editModel.EmployeeId){
+                if(this.editModel.ReviewId){
                     let tabContainer = $("#"+this.tabId);
                     window.CommonFunctions.cHiNLoader(true,tabContainer);
                     window.CommonFunctions.ServerAjaxPost(window.pageVars.getUrl,this.editModel)
@@ -222,7 +236,7 @@ let editTab ={
                                 Vue.set(this, "editModel", data);
                                 window.CommonFunctions.cHiNLoader(false,tabContainer);
                             }else{
-                                $.growl.warning({title: "Error occurred", message: "Couldn't find requested Employee" });
+                                $.growl.warning({title: "Error occurred", message: "Couldn't find requested Review" });
                             }
                         }.bind(this));
                 }
@@ -236,10 +250,10 @@ let editTab ={
                         if (data) {
                             Vue.set(this, "editModel", data);
                             window.CommonFunctions.cHiNLoader(false,tabContainer);
-                            $.growl.notice({title: "Saved Successfully", message: this.editModel.UserName+" Saved Successfully" });
+                            $.growl.notice({title: "Saved Successfully", message: this.editModel.ReviewId+" Saved Successfully" });
                             this.$root.$emit('refreshSearch', null);
                         }else{
-                            $.growl.warning({title: "Error Occurred", message: this.editModel.UserName+" Couldn't Saved" });
+                            $.growl.warning({title: "Error Occurred", message: this.editModel.ReviewId+" Couldn't Saved" });
                         }
                     }.bind(this));
                 }
@@ -252,14 +266,14 @@ let editTab ={
     routing :{
         data : function () {
             return {
-                routeText : "Modify Employee"
+                routeText : "Modify Review"
             };
         }
     }
 };
 
 let addTab ={
-    name: 'Add Employee',
+    name: 'Add Review',
     icon: 'glyphicon glyphicon-plus',
     tabId : 'tabAdd',
     isClosed : false,
@@ -269,7 +283,11 @@ let addTab ={
         template: '#tabAddTemplate',
         data : function () {
             return {
-                addModel : new EmployeeModel()
+                addModel : new ReviewModel(),
+                select2Options:{
+                    minimumInputLength: 2,
+                    ajax: window.employeeSearchAjax()
+                }
             };
         },
         methods:{
@@ -277,29 +295,30 @@ let addTab ={
                 let tabContainer = $("#"+this.tabId);
                 if(window.CommonFunctions.validateFeilds(tabContainer)){
                     window.CommonFunctions.cHiNLoader(true,tabContainer);
+                    this.addModel.StatusId = 1;
                     window.CommonFunctions.ServerAjaxPost(window.pageVars.addUrl,this.addModel, "POST")
                         .then(function (data) {
                             if (data) {
                                 Vue.set(this, "addModel", data);
                                 window.CommonFunctions.cHiNLoader(false,tabContainer);
-                                $.growl.notice({title: "Added Successfully", message: this.addModel.UserName+" Added Successfully" });
+                                $.growl.notice({title: "Added Successfully", message: this.addModel.Name+" Added Successfully" });
                                 this.clearAddPanel();
                                 this.$root.$emit('refreshSearch', null);
                             }else{
-                                $.growl.warning({title: "Error Occurred", message: this.addModel.UserName+" Couldn't Saved" });
+                                $.growl.warning({title: "Error Occurred", message: this.addModel.Name+" Couldn't Saved" });
                             }
                         }.bind(this));
                 }
             },
             clearAddPanel:function(){
-                this.addModel= new EmployeeModel();
+                this.addModel= new ReviewModel();
             }
         }
     },
     routing :{
         data : function () {
             return {
-                routeText : "Add Employee"
+                routeText : "Add Review"
             };
         }
     }
@@ -327,3 +346,28 @@ let app = new Vue({
     router : tabContainer.router
 });
 
+
+function employeeSearchAjax() {
+    let ajaxOptions = {
+        url: window.pageVars.employeeSearchUrl,
+        dataType: 'json',
+        headers : {
+            'Authorization': 'Bearer '+window.MasterVars.ApiToken,
+            "Content-Type" : "application/json"
+        },
+        processResults: function (data) {
+            if(data && data.data.length>1){
+                let employees = data.data;
+                return {
+                    results: $.map(employees, function (item) {
+                        return {
+                            text: item.UserName,
+                            id: item.EmployeeId
+                        }
+                    })
+                };
+            }
+        }
+    };
+    return ajaxOptions;
+}

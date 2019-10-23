@@ -6,7 +6,7 @@
  * Time: 1:17 PM
  */
 
-class Employee extends CI_Controller
+class Review extends CI_Controller
 {
     /**
      * Index Page for this controller.
@@ -30,8 +30,8 @@ class Employee extends CI_Controller
 
     public function index()
     {
-        authorizeUser("Admin");
-        $this->load->view('employee/employee');
+        authorizeUser("BasicUser");
+        $this->load->view('review/index');
     }
 
 

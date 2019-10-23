@@ -26,19 +26,20 @@
                     </a>
                 </li>
 
+                <?php if(validateLinkAuthorization("Admin")) { ?>
+                    <li>
+                        <a href="<?php echo base_url(); ?>index.php/employee">
+                            <i class="fa fa-user"></i> <span>Employees</span>
+                        </a>
+                    </li>
+                <?php } ?>
+
                 <li>
-                    <a href="<?php echo base_url(); ?>index.php/reviews">
+                    <a href="<?php echo base_url(); ?>index.php/review">
                         <i class="fa fa-check"></i> <span>Reviews</span>
                     </a>
                 </li>
 
-                <?php if(validateLinkAuthorization("Admin")) { ?>
-                <li>
-                    <a href="<?php echo base_url(); ?>index.php/employee">
-                        <i class="fa fa-user"></i> <span>Employees</span>
-                    </a>
-                </li>
-                <?php } ?>
             </ul>
         </section>
     </div>

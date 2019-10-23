@@ -19,6 +19,16 @@ namespace Flagfin.CoreAPI.Configs
 
             CreateMap<RegisterDTO, ApplicationUser>();
 
+            //Review mapping
+            CreateMap<Review, ReviewDTO>()
+                .ForMember(dest => dest.ReviewId, opt => opt.MapFrom(x => x.Id))
+                .ForMember(dest => dest.ReviewerId, opt => opt.MapFrom(x => x.Reviewer.Id))
+                .ForMember(dest => dest.ReviewerName, opt => opt.MapFrom(x => x.Reviewer.User.UserName))
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(x => x.Employee.Id))
+                .ForMember(dest => dest.EmployeeName, opt => opt.MapFrom(x => x.Employee.User.UserName))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(x => x.Status.ToString()))
+                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(x => (int)x.Status));
+
         }
     }
 }

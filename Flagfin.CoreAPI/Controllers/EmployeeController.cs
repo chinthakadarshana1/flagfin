@@ -234,5 +234,34 @@ namespace Flagfin.CoreAPI.Controllers
 
             return Ok(roles);
         }
+
+        [CustomAuthorization(UserTypes.BasicUser)]
+        [HttpGet]
+        public async Task<IActionResult> Search(string term)
+        {
+            //excluding admin user
+            IQueryable<Employee> query = _dbContext.Employees.Include(x => x.User).Where(us => us.Id != 1);
+
+            //creating dynamic search query
+            query = query
+                    .Where(en => EF.Functions.Like(en.User.FirstName, $"%{term}%") ||
+                                    EF.Functions.Like(en.User.LastName, $"%{term}%") ||
+                                    EF.Functions.Like(en.User.UserName, $"%{term}%"));
+
+            // Execute the query
+            var employees = await query.ToListAsync();
+
+            List<EmployeeDTO> ret = (from Employee emp in employees
+                                     select _mapper.Map<EmployeeDTO>(emp)).ToList();
+
+            SearchResultDTO<EmployeeDTO> result = new DTO.SearchResultDTO<EmployeeDTO>()
+            {
+                PageNo = 1,
+                PageSize = 100,
+                Data = ret
+            };
+
+            return Ok(result);
+        }
     }
 }
