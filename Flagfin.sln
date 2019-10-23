@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flagfin.CoreAPI", "Flagfin.CoreAPI\Flagfin.CoreAPI.csproj", "{E4AE9EF5-D2F1-4A9A-9F35-213A512CF168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCB27181-09A2-4487-9E20-20C0799F0431}"
+	ProjectSection(SolutionItems) = preProject
+		_todo.txt = _todo.txt
+		_db\flagfin.sql = _db\flagfin.sql
+		_db\init_script.sql = _db\init_script.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4AE9EF5-D2F1-4A9A-9F35-213A512CF168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4AE9EF5-D2F1-4A9A-9F35-213A512CF168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4AE9EF5-D2F1-4A9A-9F35-213A512CF168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4AE9EF5-D2F1-4A9A-9F35-213A512CF168}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9A30F4F-D19F-4F87-9B11-96F9157677B0}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+
+
+--idserver
+http://localhost:3200/.well-known/openid-configuration
+http://localhost:3200/connect/token
+
+
+swagger
+

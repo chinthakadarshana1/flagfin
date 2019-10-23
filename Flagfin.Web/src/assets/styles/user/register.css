@@ -1,0 +1,157 @@
+.login-page {
+    height: 100%;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background: url('../../images/layout/app-backgound.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-box,
+.register-box {
+    width: 360px;
+    margin: 7% auto;
+}
+@media (max-width: 768px) {
+    .login-box,
+    .register-box {
+        width: 90%;
+        margin-top: 20px;
+    }
+}
+.login-box-body,
+.register-box-body {
+    box-shadow: 4px 4px 0px 0px rgba(35, 34, 34, 0.32);
+    background: rgba(255, 255, 255, 0.84);
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+}
+.login-box-body .form-control-feedback,
+.register-box-body .form-control-feedback {
+    color: #777;
+}
+.login-box-msg,
+.register-box-msg {
+    margin: 0;
+    text-align: center;
+    padding: 0 20px 20px 20px;
+}
+
+.login-wrapper{
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    left: 30%;
+    top:0;
+}
+
+@media (max-width: 754px){
+    .login-wrapper{
+        position: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+        left: 20%;
+        top:0;
+    }
+}
+
+@media (max-width: 560px){
+    .login-wrapper{
+        position: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        left: 5%;
+    }
+}
+
+.login-logo,
+.register-logo {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.login-footer-logo a{
+    display: block;
+}
+
+.login-footer-logo a>img{
+    margin-left: auto;
+    width: 85px;
+    display: block;
+    margin-right: auto;
+}
+
+.login-logo a,
+.register-logo a {
+    color: #444;
+}
+
+.form-control-md {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.btn-md {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: #3c8dbc;
+    border-color: #367fa9;
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.hover {
+    background-color: #367fa9;
+}
+.btn.btn-flat:first-of-type,
+.btn.btn-flat:last-of-type {
+    border-radius: 0;
+}
+.btn.btn-flat {
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-width: 1px;
+}
+
+.company-info-container {
+    text-align: center;
+    margin-top: 20px;
+}
