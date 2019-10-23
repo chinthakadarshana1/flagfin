@@ -6,6 +6,11 @@ Employee Review System
 
 Employee Mangement and review system based on Service Oriented Architecture, OAuth2, .NET Core, PHP and Vue.JS.
 
+## Demo
+
+* [Web Application](http://emp.chinthakafernando.com)
+* [API](http://ids.chinthakafernando.com)
+
 ## Built With
 
 * [.NET Core](https://dotnet.microsoft.com/download) - The backend API framework
