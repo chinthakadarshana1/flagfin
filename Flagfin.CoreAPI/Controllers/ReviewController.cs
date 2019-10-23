@@ -38,7 +38,7 @@ namespace Flagfin.CoreAPI.Controllers
             var review = await _dbContext.Reviews
                 .Include(x => x.Reviewer.User)
                 .Include(x => x.Employee.User)
-                .FirstOrDefaultAsync(e => e.Id == request.ReviewerId);
+                .FirstOrDefaultAsync(e => e.Id == request.ReviewId);
 
             ReviewDTO ret = _mapper.Map<ReviewDTO>(review);
             return Ok(ret);
@@ -78,14 +78,17 @@ namespace Flagfin.CoreAPI.Controllers
             if (ModelState.IsValid)
             {
                 var review = await _dbContext.Reviews
-                   .FirstOrDefaultAsync(e => e.Id == request.ReviewerId);
+                   .FirstOrDefaultAsync(e => e.Id == request.ReviewId);
 
                 if (review != null)
                 {
+                    var reviewer = await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == request.ReviewerId);
+                    var employee = await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == request.EmployeeId);
+
                     //update employee
-                    review.Reviewer = new Employee() { Id = request.ReviewerId };
-                    review.Employee = new Employee() { Id = request.EmployeeId };
-                    review.Status = ReviewStatus.Pending;
+                    review.Reviewer = reviewer;
+                    review.Employee = employee;
+                    review.Status = (ReviewStatus)request.StatusId;
                     review.Comment = request.Comment;
                     review.Name = request.Name;
 

@@ -164,32 +164,39 @@ $this->load->view('_layout/_header.php', $headerVars)
         </div>
         <form class="form-horizontal">
             <div class="box-body">
+                <div class="group-break" style="margin-top: 5px;">
+                    Review Details
+                </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">ID</label>
+                    <label class="col-sm-2 control-label">Review ID</label>
                     <div class="col-sm-2">
                         <span  class="form-control">{{viewModel.ReviewId}}</span>
                     </div>
-                    <label class="col-sm-1 control-label">UserName</label>
+                    <label class="col-sm-1 control-label">Review Name</label>
                     <div class="col-sm-5">
-                        <span class="form-control">{{viewModel.UserName}}</span>
+                        <span  class="form-control">{{viewModel.Name}}</span>
                     </div>
                 </div>
+                <div class="group-break" style="margin-top: 5px;">
+                    Employee Details
+                </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">First Name</label>
+                    <label class="col-sm-2 control-label">Employee</label>
                     <div class="col-sm-3">
-                        <span  class="form-control">{{viewModel.FirstName}}</span>
+                        <span  class="form-control">{{viewModel.EmployeeName}}</span>
                     </div>
-                    <label class="col-sm-1 control-label">Last Name</label>
-                    <div class="col-sm-4">
-                        <span class="form-control">{{viewModel.LastName}}</span>
+                    <label class="col-sm-2 control-label">Reviewer</label>
+                    <div class="col-sm-3">
+                        <span  class="form-control">{{viewModel.ReviewerName}}</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Email</label>
+                    <label class="col-sm-2 control-label">Comment</label>
                     <div class="col-sm-8">
-                        <span class="form-control">{{viewModel.Email}}</span>
+                        <span  class="form-control">{{viewModel.Comment}}</span>
                     </div>
                 </div>
+
             </div>
         </form>
 
@@ -210,56 +217,50 @@ $this->load->view('_layout/_header.php', $headerVars)
         <form class="form-horizontal">
             <div class="box-body">
                 <div class="group-break" style="margin-top: 5px;">
-                    Account Details
+                    Review Details
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Review ID</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" placeholder="ID" disabled="disabled"
-                               v-model="editModel.ReviewId">
+                        <input type="text" class="form-control" placeholder="ID" disabled="disabled" v-model="editModel.ReviewId">
                     </div>
-                    <label class="col-sm-1 control-label">User Name</label>
+                    <label class="col-sm-1 control-label">Review Name</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" placeholder="User Name" data-toggle="tooltip" title="Enter User Name"
-                               v-validator="{regex:'[a-z]'}" v-model="editModel.UserName">
+                        <input type="text" class="form-control" placeholder="Review Name" data-toggle="tooltip" title="Enter Review Name"
+                               v-validator="{regex:'[a-z]'}" v-model="editModel.Name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Password</label>
-                    <div class="col-sm-3">
-                        <input type="password" class="form-control" placeholder="Password" v-model="editModel.Password"
-                               v-validator="{regex:'.{5,}'}" data-toggle="tooltip" title="Enter Password">
-                    </div>
-                    <label class="col-sm-2 control-label">Re-enter Password</label>
-                    <div class="col-sm-3">
-                        <input type="password" class="form-control" placeholder="Re-enter Password" v-model="editModel.ConfirmPassword"
-                               v-validator="{regex:'.{5,}'}" :data-is-invalid="editModel.Password != editModel.ConfirmPassword" data-toggle="tooltip" title="Re-Enter Password">
+                    <label class="col-sm-2 control-label">Status</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" v-model="editModel.StatusId">
+                            <option value="1">Pending</option>
+                            <option value="2">Approved</option>
+                            <option value="3">Rejected</option>
+                        </select>
                     </div>
                 </div>
                 <div class="group-break" style="margin-top: 5px;">
-                    Review Details
+                    Employee Details
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">First Name</label>
+                    <label class="col-sm-2 control-label">Employee</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="First Name" v-model="editModel.FirstName"
-                               v-validator="{regex:'[a-z]'}" data-toggle="tooltip" title="Enter FirstName">
+                        <select2 class="form-control" v-model="editModel.EmployeeId" :options="select2Options">
+                        </select2>
                     </div>
-                    <label class="col-sm-2 control-label">Last Name</label>
+                    <label class="col-sm-2 control-label">Reviewer</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="Last Name" v-model="editModel.LastName"
-                               v-validator="{regex:'[a-z]'}" data-toggle="tooltip" title="Enter LastName">
+                        <select2 class="form-control" v-model="editModel.ReviewerId" :options="select2Options">
+                        </select2>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Email</label>
+                    <label class="col-sm-2 control-label">Comment</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Review Email" data-toggle="tooltip" title="Enter Review Email"
-                               v-validator="{regex:'email'}"  v-model="editModel.Email" >
+                        <textarea class="form-control"  v-model="editModel.Comment"></textarea>
                     </div>
                 </div>
-
-
             </div>
             <div class="box-footer">
                 <button type="button" class="btn btn-info pull-right col-sm-1 form-actions-btn"

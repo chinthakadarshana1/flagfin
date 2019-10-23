@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 23, 2019 at 02:04 PM
+-- Generation Time: Oct 23, 2019 at 03:30 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -76,7 +76,18 @@ CREATE TABLE IF NOT EXISTS `aspnetuserclaims` (
   `ClaimValue` longtext,
   PRIMARY KEY (`Id`),
   KEY `IX_AspNetUserClaims_UserId` (`UserId`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aspnetuserclaims`
+--
+
+INSERT INTO `aspnetuserclaims` (`Id`, `UserId`, `ClaimType`, `ClaimValue`) VALUES
+(1, '0c05c288-004d-477f-b835-f40cb6672037', 'userName', 'QAfg'),
+(2, '0c05c288-004d-477f-b835-f40cb6672037', 'firstName', 'QAfghfgh'),
+(3, '0c05c288-004d-477f-b835-f40cb6672037', 'lastName', 'QAfgfgh'),
+(4, '0c05c288-004d-477f-b835-f40cb6672037', 'email', 'test1121@ccd5656567.com'),
+(5, '0c05c288-004d-477f-b835-f40cb6672037', 'role', 'BasicUser');
 
 -- --------------------------------------------------------
 
@@ -113,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `aspnetuserroles` (
 --
 
 INSERT INTO `aspnetuserroles` (`UserId`, `RoleId`) VALUES
+('0c05c288-004d-477f-b835-f40cb6672037', 'b2732f2c-ef59-42ae-a635-bfa325110217'),
 ('102d211d-574d-45ae-91a4-45332d1ea58b', 'b2732f2c-ef59-42ae-a635-bfa325110217'),
 ('222be44f-fa00-488a-a7a4-3775b1855416', 'b2732f2c-ef59-42ae-a635-bfa325110217'),
 ('3a8a9665-9d15-4ea2-b918-27765825e76e', 'b2732f2c-ef59-42ae-a635-bfa325110217'),
@@ -165,7 +177,8 @@ INSERT INTO `aspnetusers` (`Id`, `UserName`, `NormalizedUserName`, `Email`, `Nor
 ('5e0b187c-e14a-4dc1-86f1-6e73eb2ce9b6', 'test556', 'TEST556', 'test1121@ccd5656567.com', 'TEST1121@CCD5656567.COM', b'0', 'AQAAAAEAACcQAAAAEBvQtD/mKfcyfBU475lmZ4WMUq82nAeaci1CbmzVicHe2fN290HxfiulolJ0KivlSQ==', 'MNTJ45EH7R7Y6NIEZKFVLRKI6K5IORNE', 'ef9c11f5-a5bc-4865-89fa-76441b212444', NULL, b'0', b'0', NULL, b'1', 0, 'ghjgfhfhgfh123', 'fghgfhfgh'),
 ('102d211d-574d-45ae-91a4-45332d1ea58b', 'tfdgdgdg', 'TFDGDGDG', 'test1121@ccd5656567.com', 'TEST1121@CCD5656567.COM', b'0', 'AQAAAAEAACcQAAAAEAa4WgCm491jgdS7r+Cd7zD3Lv6Ez12YgdA1c8Iht1hVf1e9t9TpccqG9UIGI5VjJQ==', 'JVVPDWN6BGJ4UQHSEGOT4NGHOWELHLDU', 'df9f56da-a70f-4bcc-b6cb-bd54d3e1d06c', NULL, b'0', b'0', NULL, b'1', 0, 'test_fistname', 'calceytest'),
 ('43f31c3a-6ceb-49dd-9ef7-23cf31ec8877', 'vbnvnvbn', 'VBNVNVBN', 'nilenth@calcey.com', 'NILENTH@CALCEY.COM', b'0', 'AQAAAAEAACcQAAAAEP0P0rpvrTvEuxNhVVC6xysu2yinRyL9AA8zAklIfz/SRnIBT7cpBZROqttTSetRRQ==', 'IECXB3KCF6QKKFI2HKHNPMTMUDO44BN3', '4af22ec6-3e5d-4259-a782-48c73872a4c2', NULL, b'0', b'0', NULL, b'1', 0, 'test_fistname', 'test_lastname'),
-('222be44f-fa00-488a-a7a4-3775b1855416', 'fghfghfgh', 'FGHFGHFGH', 'test1121@ccd56gnhghhg56567.com', 'TEST1121@CCD56GNHGHHG56567.COM', b'0', 'AQAAAAEAACcQAAAAELwsSt9S2v74yGpNShySrtpdiwa+qs6YIBi13WLIThVxBT5vk5a0E4U0vNpePU2KWQ==', 'KYS3KBIIPAXLLVZZEJUN6JAD2UGW77ZK', '8f33325f-04b6-45a9-b878-0dc21ecc8a8a', NULL, b'0', b'0', NULL, b'1', 0, 'test_fistname', 'test_lastname');
+('222be44f-fa00-488a-a7a4-3775b1855416', 'fghfghfgh', 'FGHFGHFGH', 'test1121@ccd56gnhghhg56567.com', 'TEST1121@CCD56GNHGHHG56567.COM', b'0', 'AQAAAAEAACcQAAAAELwsSt9S2v74yGpNShySrtpdiwa+qs6YIBi13WLIThVxBT5vk5a0E4U0vNpePU2KWQ==', 'KYS3KBIIPAXLLVZZEJUN6JAD2UGW77ZK', '8f33325f-04b6-45a9-b878-0dc21ecc8a8a', NULL, b'0', b'0', NULL, b'1', 0, 'test_fistname', 'test_lastname'),
+('0c05c288-004d-477f-b835-f40cb6672037', 'QAfg', 'QAFG', 'test1121@ccd5656567.com', 'TEST1121@CCD5656567.COM', b'0', 'AQAAAAEAACcQAAAAELKJ7sg9iQB/1tGmSX+nDnxgOIPvPElAONYFaSqmE1rXPykYI40cy6CJDy1NJS46Lw==', '65IKCR5JXYOTAJGJ7C4GQFK2HRYIUGP6', '9fe9e910-bb39-49e8-b5d6-7959948e7f88', NULL, b'0', b'0', NULL, b'1', 0, 'QAfghfgh', 'QAfgfgh');
 
 -- --------------------------------------------------------
 
@@ -195,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `JobTitle` longtext,
   PRIMARY KEY (`Id`),
   KEY `IX_Employees_UserId` (`UserId`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employees`
@@ -209,7 +222,8 @@ INSERT INTO `employees` (`Id`, `UserId`, `JobTitle`) VALUES
 (5, '5e0b187c-e14a-4dc1-86f1-6e73eb2ce9b6', NULL),
 (6, '102d211d-574d-45ae-91a4-45332d1ea58b', NULL),
 (7, '43f31c3a-6ceb-49dd-9ef7-23cf31ec8877', NULL),
-(8, '222be44f-fa00-488a-a7a4-3775b1855416', NULL);
+(8, '222be44f-fa00-488a-a7a4-3775b1855416', NULL),
+(9, '0c05c288-004d-477f-b835-f40cb6672037', NULL);
 
 -- --------------------------------------------------------
 
@@ -228,14 +242,17 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   PRIMARY KEY (`Id`),
   KEY `IX_Reviews_EmployeeId` (`EmployeeId`),
   KEY `IX_Reviews_ReviewerId` (`ReviewerId`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
 --
 
 INSERT INTO `reviews` (`Id`, `ReviewerId`, `EmployeeId`, `Status`, `Comment`, `Name`) VALUES
-(1, 2, 1, 1, 'test', 'test');
+(1, 6, 4, 2, 'test', 'test'),
+(2, 2, 4, 1, 'test', 'test23232'),
+(3, 6, 3, 1, 'test', 'test11244'),
+(4, 6, 3, 1, 'test', 'chin1212');
 
 -- --------------------------------------------------------
 

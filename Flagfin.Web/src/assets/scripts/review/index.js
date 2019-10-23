@@ -222,7 +222,11 @@ let editTab ={
         template: '#tabEditTemplate',
         data : function () {
             return {
-                editModel: new window.ReviewModel()
+                editModel: new window.ReviewModel(),
+                select2Options:{
+                    minimumInputLength: 2,
+                    ajax: window.employeeSearchAjax()
+                }
             };
         },
         methods:{
