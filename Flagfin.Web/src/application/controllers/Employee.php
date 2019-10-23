@@ -30,6 +30,7 @@ class Employee extends CI_Controller
 
     public function index()
     {
+        authorizeUser("Admin");
         $this->load->view('employee/employee');
     }
 

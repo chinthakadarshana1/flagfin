@@ -67,6 +67,12 @@ class User extends CI_Controller
                         if(isset($loggedInUser)){
                             $_SESSION[SESSION_USER] = $loggedInUser;
 
+                            //getting user roles
+                            $userRoles = $this->getUserRoleDetails($authResult->access_token);
+                            if(isset($userRoles)){
+                                $_SESSION[SESSION_ROLES] = $userRoles;
+                            }
+
                             $ret["data"] = $loggedInUser;
                             $ret["status"]["isSuccessfull"] = true;
                         }else{
@@ -89,6 +95,12 @@ class User extends CI_Controller
 
     private function getUserDetails($token){
         $userDataUrl = API_URL."Employee/GetCurrentUser";
+        $userData = callAPI("POST",$userDataUrl,$token,false);
+        return json_decode($userData);
+    }
+
+    private function getUserRoleDetails($token){
+        $userDataUrl = API_URL."Employee/GetRolesForUser";
         $userData = callAPI("POST",$userDataUrl,$token,false);
         return json_decode($userData);
     }

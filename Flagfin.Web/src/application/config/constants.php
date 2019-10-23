@@ -86,7 +86,8 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 /*API URLs*/
-defined('SESSION_USER')        OR define('SESSION_USER', 'SESSION_USER'); // api url
-defined('SESSION_TOKEN')        OR define('SESSION_TOKEN', 'SESSION_TOKEN'); // api url
+defined('SESSION_USER')        OR define('SESSION_USER', 'SESSION_USER'); // user session
+defined('SESSION_TOKEN')        OR define('SESSION_TOKEN', 'SESSION_TOKEN'); // user tiken
+defined('SESSION_ROLES')        OR define('SESSION_ROLES', 'SESSION_ROLES'); // user roles
 defined('API_URL')        OR define('API_URL', 'http://localhost:3200/api/'); // api url
-defined('AUTH_URL')        OR define('AUTH_URL', 'http://localhost:3200/connect/token'); // api url
+defined('AUTH_URL')        OR define('AUTH_URL', 'http://localhost:3200/connect/token'); // auth url

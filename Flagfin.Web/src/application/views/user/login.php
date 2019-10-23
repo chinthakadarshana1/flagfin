@@ -61,7 +61,7 @@
                 <div class="form-group company-info-container">
                     <address>
                         <strong>Employee Performance Review System.</strong><br/>
-                        Register For Employee Review System<br/>
+                        Login to Employee Review System<br/>
                     </address>
                 </div>
             </form>

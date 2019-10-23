@@ -19,8 +19,11 @@ function authorizeUser($role = ""){
     if(isset($_SESSION[SESSION_USER])){
         $ret["user"] = $_SESSION[SESSION_USER];
         if($role != ""){
-            if(isset($_SESSION[SESSION_USER])){
-                //todo fetch roles
+            if(!validateLinkAuthorization($role)){
+                $currentUrl = "";
+                redirect("/user".($currentUrl != "" ? "?return=$currentUrl":""), 'refresh');
+            }else{
+                $ret["is_authorized"] = true;
             }
         }
         else
@@ -86,4 +89,9 @@ function callAuth($userName,$password){
     $response = curl_exec( $ch );
 
     return $response;
+}
+
+function validateLinkAuthorization($role){
+    $userRoles = $_SESSION[SESSION_ROLES];
+    return in_array($role, $userRoles);
 }

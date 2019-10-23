@@ -184,9 +184,10 @@ namespace Flagfin.CoreAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchUser(SearchQueryDTO<EmployeeDTO> request)
         {
-            //creating dynamic search query
-            IQueryable<Employee> query = _dbContext.Employees.Include(x => x.User);
+            //excluding admin user
+            IQueryable<Employee> query = _dbContext.Employees.Include(x => x.User).Where(us => us.Id != 1);
 
+            //creating dynamic search query
             if (!string.IsNullOrEmpty(request.FreeText))
             {
                 query = query
@@ -220,6 +221,18 @@ namespace Flagfin.CoreAPI.Controllers
             };
 
             return Ok(result);
+        }
+
+
+        [CustomAuthorization(UserTypes.BasicUser)]
+        [HttpPost]
+        public IActionResult GetRolesForUser()
+        {
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value);
+
+            return Ok(roles);
         }
     }
 }

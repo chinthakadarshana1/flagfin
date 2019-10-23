@@ -32,11 +32,13 @@
                     </a>
                 </li>
 
+                <?php if(validateLinkAuthorization("Admin")) { ?>
                 <li>
                     <a href="<?php echo base_url(); ?>index.php/employee">
                         <i class="fa fa-user"></i> <span>Employees</span>
                     </a>
                 </li>
+                <?php } ?>
             </ul>
         </section>
     </div>
