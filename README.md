@@ -31,9 +31,6 @@ Password : user@123
 * PHP 7
 * MySQL 5.7
 
-```
-Give examples
-```
 
 ## Getting Started
 
