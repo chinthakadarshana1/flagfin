@@ -360,7 +360,7 @@ function employeeSearchAjax() {
             "Content-Type" : "application/json"
         },
         processResults: function (data) {
-            if(data && data.data.length>1){
+            if(data && data.data.length>0){
                 let employees = data.data;
                 return {
                     results: $.map(employees, function (item) {
