@@ -95,7 +95,7 @@ cHiNCommon = (function($) {
                             title = errorThrown;
                             msg ="";
                             $(jqXhr.responseJSON).each(function (index, item) {
-                                msg += item.description+"<br>";
+                                msg += item.Description+"<br>";
                             });
                             break;
                         case 403:

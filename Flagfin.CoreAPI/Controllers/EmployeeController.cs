@@ -194,7 +194,7 @@ namespace Flagfin.CoreAPI.Controllers
                     .Where(en => EF.Functions.Like(en.User.FirstName, $"%{request.FreeText}%") ||
                                     EF.Functions.Like(en.User.LastName, $"%{request.FreeText}%") ||
                                     EF.Functions.Like(en.User.UserName, $"%{request.FreeText}%") ||
-                                    en.Id== request.SearchModel.EmployeeId);
+                                    en.Id == request.SearchModel.EmployeeId);
             }
             else
             {
@@ -213,7 +213,8 @@ namespace Flagfin.CoreAPI.Controllers
             List<EmployeeDTO> ret = (from Employee emp in employees
                                      select _mapper.Map<EmployeeDTO>(emp)).ToList();
 
-            SearchResultDTO<EmployeeDTO> result = new DTO.SearchResultDTO<EmployeeDTO>() {
+            SearchResultDTO<EmployeeDTO> result = new DTO.SearchResultDTO<EmployeeDTO>()
+            {
                 PageNo = request.PageNo,
                 PageSize = request.PageSize,
                 TotalRecords = totalCount,
@@ -262,6 +263,34 @@ namespace Flagfin.CoreAPI.Controllers
             };
 
             return Ok(result);
+        }
+
+        [CustomAuthorization(UserTypes.BasicUser)]
+        [HttpPost]
+        public async Task<IActionResult> GetReviewCounts()
+        {
+            string userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return BadRequest("User Cannotbe found!");
+            else
+            {
+                var employee = await _dbContext.Employees
+                                       .Include(x => x.User)
+                                       .FirstOrDefaultAsync(e => e.User.Id == user.Id);
+
+                //excluding admin user
+                IQueryable<Review> query = _dbContext.Reviews;
+
+                List<int> counts = new List<int>();
+
+                counts.Add(await query.Where(x => x.Status == ReviewStatus.Pending && x.Employee.Id == employee.Id).CountAsync());
+                counts.Add(await query.Where(x => x.Status == ReviewStatus.Approved && x.Employee.Id == employee.Id).CountAsync());
+                counts.Add(await query.Where(x => x.Status == ReviewStatus.Rejected && x.Employee.Id == employee.Id).CountAsync());
+
+                return Ok(counts);
+            }
         }
     }
 }

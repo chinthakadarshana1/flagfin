@@ -1,0 +1,44 @@
+.small-box{
+    border: 1px solid #6e6c6c;
+    border-radius: 8px;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.small-box:hover{
+    border: 1px solid #6e6c6c;
+    box-shadow: 1px 1px 1px red;
+}
+
+
+.bg-orange{
+    background-color: darkorange;
+}
+
+.bg-red{
+    background-color: orangered;
+}
+
+.bg-green{
+    background-color: green;
+}
+
+.icon i{
+    font-size: 75px;
+    z-index: 2;
+}
+
+.icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-left: 25px;
+    margin-top: 5px;
+    opacity: 0.5;
+}
+
+.small-box .inner h3{
+    font-size: xx-large;
+}
